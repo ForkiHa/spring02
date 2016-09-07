@@ -27,5 +27,10 @@
 <url-pattern>*.do</url-pattern>
 </servlet-mapping>
 
+<servlet-mapping>
+	<servlet-name>dispatcher</servlet-name>
+	<url-pattern>/game/users/*</url-pattern>
+</servlet-mapping>
+
 
 </web-app>

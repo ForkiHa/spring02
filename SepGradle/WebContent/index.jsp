@@ -17,9 +17,17 @@
 
 <a href="order/order.do">/order.do</a><br>
 
-<a href="search/internal.do?query=aa&&p=1">/internal.do</a><br>
+<a href="search/internal.do?query=aa & p=1">/internal.do</a> <a href="search/external.do">/external.do</a><br>
 
-<a href="search/external.do">/external.do</a><br>
+<a href="cookie/make.do">/make.do</a>  <a href="cookie/view.do">/view.do</a><br>
+
+<a href="header/check.do">/check.do</a> <br>
+
+<a href="search/main.do">game</a> <br>
+
+<a href="game/users/ha/characters/0506">/game/users/{1}/characters/{2}</a>
+<br>
+<a href="account/create.do">/create</a>
 
 
 

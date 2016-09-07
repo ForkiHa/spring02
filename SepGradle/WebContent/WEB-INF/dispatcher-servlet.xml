@@ -23,4 +23,33 @@
 
 <bean id="searchController" class="spring.controller.SearchController"/>
 
+<bean id="cookieController" class="spring.controller.CookieController"/>
+
+<bean id="headerController" class="spring.controller.HeaderController"/>
+
+<bean class="spring.controller.GameSearchController" p:searchService-ref="searchService"/>
+
+<bean id="searchService" class="spring.service.SearchService"/>
+
+<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	<property name="alwaysUseFullPath" value="true"/>
+</bean>
+
+<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
+p:alwaysUseFullPath="true"/>
+
+ <bean class="spring.controller.CreateAccountController"/> 
+
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+<property name="basenames">
+	<list>
+		<value>messages.validation</value>
+	</list>
+</property>
+</bean>
+
+<bean class="spring.controller.CharacterInfoController"/>
+
+
+
 </beans>
