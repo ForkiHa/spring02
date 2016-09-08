@@ -50,6 +50,15 @@ p:alwaysUseFullPath="true"/>
 
 <bean class="spring.controller.CharacterInfoController"/>
 
+<bean id="commonLogger" class="spring.common.CommonLoggerImpl"/>
+<bean id="authenticator" class="spring.service.MockAuthenticator" p:commonLogger-ref="commonLogger" />
 
+<bean class="spring.controller.LoginController">
+	<property name="authenticator" ref="authenticator"/>
+</bean>
+
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+<bean class="spring.controller.ReportSubmissionController"/>
 
 </beans>

@@ -19,6 +19,7 @@
 	<br/> 
 	우편번호 :<input type="text" name="address.zipcode" value="${command.address.zipcode}"/>
 	<form:errors path="command.address.zipcode"/>
+	<!-- address.zipcode : address객체안에 있는 zipcode프로퍼티에 저장 -->
 	<br/> 
 	주소1: <input type="text" name="address.address1" value="${command.address.address1}"/>
 	<form:errors path="command.address.address1"/>

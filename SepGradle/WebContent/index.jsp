@@ -27,7 +27,11 @@
 
 <a href="game/users/ha/characters/0506">/game/users/{1}/characters/{2}</a>
 <br>
-<a href="account/create.do">/create</a>
+<a href="account/create.do">/create</a><br>
+
+<a href="login/login.do"> /login</a> <br>
+
+<a href="report/submission.do"> report</a> <br>
 
 
 

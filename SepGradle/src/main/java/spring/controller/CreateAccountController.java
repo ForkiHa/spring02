@@ -19,18 +19,21 @@ public class CreateAccountController {
 	@ModelAttribute("command")
 	public MemberInfo formBacking(HttpServletRequest request){
 		if(request.getMethod().equalsIgnoreCase("GET")){
+			//GET방식으로 들어왔을때만 실행
 			MemberInfo mi = new MemberInfo();
 			Address address = new Address();
 			address.setZipcode(autoDetectZipcode(request.getRemoteAddr()));
+			//request.getRemoteAddr() : 접속한 클라이언트의  ip를 가져옴 (이용안함)
 			mi.setAddress(address);
 			return mi;
 		} else{
+			//POST방식 일 때 
 			return new MemberInfo();
 		}
 	}
 	
 	private String autoDetectZipcode(String remoteAddr){
-		return "000-0000";
+		return "000-000";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -40,6 +43,8 @@ public class CreateAccountController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String submit(@ModelAttribute("command")MemberInfo memberInfo,BindingResult result){
+		//미리 만들어져있던 객체 주입 ( command라는 이름의 객체가 존재하기 때문에 ) 
+		
 		new MemberInfoValidator().validate(memberInfo,result);
 		if(result.hasErrors()){
 			return "account/creationForm";
