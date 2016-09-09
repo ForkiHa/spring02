@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ReportCommand {
 
 	private String studentNumber;
-	private MultipartFile report;
+	private MultipartFile report; //file타입의 파라미터는 MultipartFile로 
 	
 	public String getStudentNumber() {
 		return studentNumber;
