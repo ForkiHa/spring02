@@ -18,7 +18,7 @@
 		아이디 : <form:input path="userId" />
 		<%-- <form:input path="userId"/> -> <input id="userId" name="userId" type="text" value="">
 		path명이 id와 name명으로  --%>
-		<form:errors path="userId" element="div"/>
+		<form:errors path="userId"/> 
 		<!-- userId에 대한 에러 div태그로 에러메시지 출력 : 아래줄 -->
 		<br>
 		

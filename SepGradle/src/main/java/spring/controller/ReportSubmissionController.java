@@ -4,8 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +19,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import spring.model.Item;
 import spring.mybatis.SaveDAO;
+import spring.service.AuthenticationException;
+import spring.validator.UploadValidator;
 
 @Controller
 public class ReportSubmissionController {
@@ -71,9 +78,21 @@ public class ReportSubmissionController {
 	}
 	
 	@RequestMapping(value="/report/submitReport3.do",method=RequestMethod.POST)
-	public String submitReport3(ReportCommand reportCommand) throws IllegalStateException, IOException{
+	public String submitReport3(@Valid ReportCommand reportCommand, BindingResult result) throws IllegalStateException, IOException{
 		printInfo(reportCommand.getStudentNumber(), reportCommand.getReport());
 		upload(reportCommand.getReport());
-		return "report/submissionComplete"; //같은 이름의 파라미터의 변수를 만든다~~
+		
+		if(result.hasFieldErrors()){
+			return "report/submissionForm";
+		}
+
+			return "report/submissionComplete"; //같은 이름의 파라미터의 변수를 만든다~~
+		
+	}
+	
+	@InitBinder //초기화시 실행
+	protected void initBinder(WebDataBinder binder){
+		binder.setValidator(new UploadValidator());
+		//UploadValidator() : 기본 validator객체 
 	}
 }
