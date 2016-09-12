@@ -25,9 +25,9 @@
 	<property name="mapperLocations" value="classpath:sql/*.xml" />
 </bean>
 
-<bean id="dao" class="spring.mybatis.SaveDAO">
+<!-- <bean id="dao" class="spring.mybatis.SaveDAO">
 	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-</bean>
+</bean> -->
 
 <context:annotation-config />
 
@@ -99,7 +99,7 @@ p:alwaysUseFullPath="true"/>
 
 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
-<bean class="spring.controller.ReportSubmissionController"/>
+<!-- <bean class="spring.controller.ReportSubmissionController"/> -->
 
 <bean class="spring.controller.QueryLogController"/>
 
@@ -145,4 +145,7 @@ p:alwaysUseFullPath="true"/>
 	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 </bean>
 
+<bean class="Ajax.Controller.CityController"/>
+
+<bean class="Ajax.Controller.CityServiceImpl"/>
 </beans>
