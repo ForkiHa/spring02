@@ -14,30 +14,35 @@
 <context:property-placeholder location="classpath:db.properties"/>
 
 <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-<property name="driverClass" value="${jdbc.driver}" />
-<property name="jdbcUrl" value="${jdbc.url}"/>
-<property name="user" value="${jdbc.username}"/>
-<property name="password" value="${jdbc.password}"/>
+	<property name="driverClass" value="${jdbc.driver}" />
+	<property name="jdbcUrl" value="${jdbc.url}"/>
+	<property name="user" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
 </bean>
+
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-<property name="dataSource" ref="dataSource"/>
-<property name="mapperLocations" value="classpath:sql/*.xml" />
+	<property name="dataSource" ref="dataSource"/>
+	<property name="mapperLocations" value="classpath:sql/*.xml" />
 </bean>
+
 <bean id="dao" class="spring.mybatis.SaveDAO">
-<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 </bean>
+
 <context:annotation-config />
+
 <bean id="helloController" class="spring.controller.HelloController"/>
 
 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-<!-- viewResolver에는 view정보 -->
- <property name="prefix" value="/WEB-INF/views/" />
- <property name="suffix" value=".jsp"/>
+	<!-- viewResolver에는 view정보 -->
+ 	<property name="prefix" value="/WEB-INF/views/" />
+ 	<property name="suffix" value=".jsp"/>
 </bean>
 
 
 <bean id="newArticleController" class="spring.controller.NewArticleController"
 	p:articleService-ref="articleService"/>
+
 <bean id="articleService" class="spring.service.ArticleService"/>	
 
 <bean class="spring.controller.OrderController"/>	  
@@ -54,6 +59,19 @@
 
 <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 	<property name="alwaysUseFullPath" value="true"/>
+	<property name="interceptors">
+		<list>
+			<ref bean="eventExpirationCheckInterceptor"/>
+		</list>
+		<!-- 인터셉터 구현하고 있는 빈을 등록하면 메서드실행전에(Controller실행전에)
+		인터셉터가 가로채서  preHandle()실행되고  실제 요청메서드가 실행(Controller 실행) 
+		문제없이 실행되면(실제요청메서드가 실행) 인터셉터마다 postHandle() 실행 -> afterCompletion()실행 -->
+	
+		<!--  인터셉터 A B 가 있다면
+		 A preHandle() -> B preHandle() ->(인터셉터 true 리턴시에) 실제 요청 메서드 ->
+		 B postHandle() -> B afterCompletion() -> A postHandle() -> A afterCompletion() 
+		 (인터셉터 역순으로)    -->
+	</property>
 </bean>
 
 <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"
@@ -62,16 +80,17 @@ p:alwaysUseFullPath="true"/>
  <bean class="spring.controller.CreateAccountController"/> 
 
 <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-<property name="basenames">
-	<list>
-		<value>messages.validation</value>
-	</list>
-</property>
+	<property name="basenames">
+		<list>
+			<value>messages.validation</value>
+		</list>
+	</property>
 </bean>
 
 <bean class="spring.controller.CharacterInfoController"/>
 
 <bean id="commonLogger" class="spring.common.CommonLoggerImpl"/>
+
 <bean id="authenticator" class="spring.service.MockAuthenticator" p:commonLogger-ref="commonLogger" />
 
 <bean class="spring.controller.LoginController">
@@ -82,5 +101,48 @@ p:alwaysUseFullPath="true"/>
 
 <bean class="spring.controller.ReportSubmissionController"/>
 
+<bean class="spring.controller.QueryLogController"/>
+
+<bean class="spring.controller.EventController"/>
+
+<bean id="eventExpirationCheckInterceptor" class="spring.interceptor.EventExpirationCheckInterceptor"/>
+
+<bean class="spring.controller.ArithmeticOperatorController"/>
+
+<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<property name="exceptionMappings">
+		<props>
+			<prop key="java.lang.ArithmeticException">
+				<!-- 0으로 나눴을때 발생하는 Exception -->
+				error/mathException
+			</prop>
+			<prop key="java.lang.NullPointerException">
+				error/nullException
+			</prop>
+			<prop key="java.lang.Exception">
+				error/exception
+			</prop> 
+		</props>
+	</property>
+</bean>
+
+<bean class="spring.controller.SimpleConverterController"/>
+
+<mvc:annotation-driven>
+	<mvc:message-converters>
+		<!-- @ResponseBody로 String 처리할때 한글처리 -->
+		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+			<property name="supportedMediaTypes">
+				<list>
+					<value>text/html;charset=UTF-8</value>
+				</list>
+			</property>
+		</bean>
+	</mvc:message-converters>
+</mvc:annotation-driven>
+
+<bean id="dao" class="Ajax.Controller.CityDAO">
+	<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+</bean>
 
 </beans>

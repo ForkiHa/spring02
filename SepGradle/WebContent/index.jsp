@@ -33,6 +33,14 @@
 
 <a href="report/submission.do"> report</a> <br>
 
+<a href="log/query.do"> query</a> <br>
+
+<a href="event/list.do"> event</a> <br>
+
+<a href="math/add.do?op2=3">add</a> <a href="math/subtract.do?op2=2">subtract</a>
+<a href="math/multiply.do?op1=10">multiply</a> <a href="math/divide.do?op1=&op2=0">divide</a> <br>
+
+<a href="test/simpleTest.do">simpleTest</a> <a href="test/simpleTest1.do">simpleTest1</a> <a href="test/simpleTest2.do">simpleTest2</a>
 
 
 </body>
