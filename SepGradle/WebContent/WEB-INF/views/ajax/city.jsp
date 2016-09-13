@@ -2,7 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% 
-	String cp = request.getContextPath();
+	String cp = request.getContextPath(); //웹컨텐츠앞경로까지 가져오기 (프로젝트명)
 	request.setCharacterEncoding("UTF-8");
 %>
 
@@ -22,7 +22,7 @@ $(function(){
 		type:"post" // 포스트방식
 		,url:url //url주소
 		,data:params //요청에 전달되는 프로퍼티를 가진 객체
-		,dataType:"json" 
+		,dataType:"json" //리턴된 데이터타입 : json타입으로 받겠다 
 		,success:function(args){ //응답이 성공 상태 코드를 반환하면 호출되는 함수
 			for(var idx=0; idx<args.data.length; idx++){
 				$("#sido").append("<option value='"+args.data[idx]+"'>"+args.data[idx]+"</option>");
@@ -90,10 +90,10 @@ function cityList(){
 
 //확인 버튼을 누르면 실행될 함수
 function result(){
-	var sido=$("#sido:selected").text();
-	var city=$("#city:selected").text();
+	var sido=$("#sido :selected").text();
+	var city=$("#city :selected").text();
 	
-	var s=sido+" " + city;
+	var s=sido+" "+city;
 	alert(s);
 }
 </script>
