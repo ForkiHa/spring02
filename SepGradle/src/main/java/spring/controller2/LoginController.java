@@ -22,6 +22,7 @@ public class LoginController {
 	public LoginCommand formBacking(){
 		return new LoginCommand();
 	}
+	//메서드에 @ModelAttribute - > 리턴값을 value로 ()값을  key값으로 모델에 추가
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String form(){

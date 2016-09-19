@@ -11,12 +11,14 @@
         <ul>
         	<li>
         		<a href="<c:url value='/jsp/login/login.do'/>">/jsp/login/login.do</a>
+        		<!-- servlet경로(/jsp)를 제외한 /login/login.do실행 -->
         		(viewjsp/loginForm.jsp, &lt;form:* /&gt; 태그 및 &lt;spring:message&gt; 태그 예제) 
         	</li>
         	<li>
         		<a href="<c:url value='/jsp/member/regist.do'/>">/jsp/member/regist.do</a>
         		(viewjsp/registMemberForm.jsp, &lt;form:label/&gt; 태그 예제) 
         	</li>
+        	<!-- 서블릿 경로 기반 / 확장자 기반 -> 서블릿 경로기반이 우선권을 가진다. -->
         	<li>
         		<a href="<c:url value='/jsp/articleForm.do'/>">/jsp/articleForm.do</a>
         		(viewjsp/article/*.jsp, &lt;form:form&gt; 태그의 RESTful 지원 예제) 

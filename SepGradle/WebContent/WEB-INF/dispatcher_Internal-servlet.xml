@@ -10,14 +10,18 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
-<context:component-scan base-package="view.controller"/>
+<!-- <context:component-scan base-package="spring.controller2"/> -->
+<!-- base-package : 빈으로 등록할 패키지명
+controller / service / component / repository 어노태이션이 붙어있는 클래스를 찾아가 빈으로 등록 -->
 
 <bean id="viewResolver1" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+<!-- 같은 이름의 bean을 찾음 (loginform) -> 해당이름의 이름이 없으므로 null값 리턴 -->
 
 <bean id="viewResolver2" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix" value="/WEB-INF/viewjsp/"/>
 	<property name="suffix" value=".jsp"/>
 </bean>
+<!-- internalResolver를 맨 마지막에 등록 -->
 
 <bean class="spring.controller2.LoginController">
 	<property name="authenticator">
@@ -34,9 +38,24 @@
 	</property>
 </bean>
 
+<bean class="spring.controller2.RegistMemberController"/>
 
+<bean class="spring.controller2.LocaleChangeController">
+	<property name="localeResolver" ref="localeResolver"/>
+</bean>
 
+<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
 
+<bean class="spring.controller2.LocaleChangeController2"/>
+<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="language"/>
+
+<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	<property name="interceptors">
+		<list>
+			<ref bean = "localeChangeInterceptor"/>
+		</list>
+	</property>
+</bean>
 
 
 

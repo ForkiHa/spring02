@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
 
+<display-name>Archetype created Web Application</display-name>
+
+<context-param>
+	<param-name>defaultHtmlEscape</param-name>
+	<param-value>false</param-value>
+</context-param> 
+<!--html에서 false로 지정했을때 <spring>을 특수문자 치환되지 않고 그대로 출력 -->
+
+
 <filter>
 <filter-name>encodingFilter</filter-name>
 <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
